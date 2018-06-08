@@ -1,0 +1,126 @@
+<!-- create.component.html -->
+
+<div class="card">
+  <div class="card-body">
+    <form [formGroup]="angForm" novalidate>
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <div class="form-group required">
+            <label class="control-label" for="nome">Nome: </label>
+            <input type="text" class="form-control" name="nome" formControlName="nome" #nome />
+          </div>
+          <div *ngIf="angForm.controls['nome'].invalid && (angForm.controls['nome'].dirty || angForm.controls['nome'].touched)" class="alert alert-danger">
+            <div *ngIf="angForm.controls['nome'].errors.required">
+              Nome é obrigatório.
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <div class="form-group required">
+            <label class="control-label" for="sobrenome">Sobrenome: </label>
+            <input type="text" class="form-control" name="sobrenome" formControlName="sobrenome" #sobrenome />
+          </div>
+          <div *ngIf="angForm.controls['sobrenome'].invalid && (angForm.controls['sobrenome'].dirty || angForm.controls['sobrenome'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="angForm.controls['sobrenome'].errors.required">
+              Sobrenome é obrigatório.
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <div class="form-group required">
+            <label class="control-label" for="email">Email: </label>
+            <input type="text" class="form-control" name="email" formControlName="email" #email pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,6})+$"
+            />
+          </div>
+          <div *ngIf="angForm.controls['email'].invalid && (angForm.controls['email'].dirty || angForm.controls['email'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="angForm.controls['email'].errors.required">
+              Email é obrigatório.
+            </div>
+            <div *ngIf="angForm.controls['email'].errors && angForm.controls['email'].errors.pattern">
+              Email é inválido
+            </div>
+          </div>
+          </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <div class="form-group">
+            <label class="control-label" for="sexo">Sexo: </label>
+            <select class="form-control" name="sexo" formControlName="sexo" #sexo>
+              <option value="Masculino">Masculino</option>
+              <option value="Feminino">Feminino</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <div class="form-group required">
+            <label class="control-label" for="datacriacao">Data do Cadastro: </label>
+            <input type="date" class="form-control" name="datacriacao" formControlName="datacriacao" #datacriacao />
+          </div>
+          <div *ngIf="angForm.controls['datacriacao'].invalid && (angForm.controls['datacriacao'].dirty || angForm.controls['datacriacao'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="angForm.controls['datacriacao'].errors.required">
+              Data de Criação é obrigatório.
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <div class="form-group">
+            <label class="control-label" for="selectedEstado">Estado: </label>
+            <select class="form-control" id="selectedEstado" (change)="onSelectEstado($event.target.value)" name="selectedEstado" formControlName="selectedEstado"
+              #selectedEstado>
+              <option value="0">Selecione o Estado</option>
+              <option *ngFor="let estado of getEstados()" value={{estado.id}}>{{estado.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <div class="form-group">
+            <label class="control-label" for="selectedCidade">Cidade: </label>
+            <select class="form-control" id="selectedCidade" name="selectedCidade" formControlName="selectedCidade" #selectedCidade>
+              <option value="0">Selecione a Cidade</option>
+              <option *ngFor="let cidade of cidades" value={{cidade.id}}>{{cidade.name}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">
+          <div class="form-group required">
+            <label class="control-label" for="areaformacao">Área de Formação: </label>
+            <input type="text" class="form-control" name="areaformacao" formControlName="areaformacao" #areaformacao />
+          </div>
+          <div *ngIf="angForm.controls['areaformacao'].invalid && (angForm.controls['areaformacao'].dirty || angForm.controls['areaformacao'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="angForm.controls['areaformacao'].errors.required">
+              Área de Formação é obrigatório.
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-4">
+          <div class="form-group required">
+            <label class="control-label" for="profissao">Profissão: </label>
+            <select class="form-control" name="profissao" formControlName="profissao" #profissao>
+              <option value="Advogado">Advogado</option>
+              <option value="Bombeiro">Bombeiro</option>
+              <option value="Médico">Médico</option>
+              <option value="Programador">Programador</option>
+              <option value="Zelador">Zelador</option>
+            </select>
+          </div>
+          <div *ngIf="angForm.controls['profissao'].invalid && (angForm.controls['profissao'].dirty || angForm.controls['profissao'].touched)"
+            class="alert alert-danger">
+            <div *ngIf="angForm.controls['profissao'].errors.required">
+              Profissão é obrigatório.
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <div class="form-group pull-right">
+            <button (click)="addProf(nome.value, sobrenome.value, email.value, sexo.value, datacriacao.value, selectedEstado.value, selectedCidade.value, areaformacao.value, profissao.value)"
+              [disabled]="angForm.controls['nome'].invalid || angForm.controls['sobrenome'].invalid || angForm.controls['email'].invalid || angForm.controls['datacriacao'].invalid || angForm.controls['areaformacao'].invalid || angForm.controls['profissao'].invalid"
+              class="btn btn-primary btn-lg"><fa name="save"></fa> Salvar</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

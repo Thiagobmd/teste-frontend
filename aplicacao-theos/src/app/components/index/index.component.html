@@ -1,0 +1,42 @@
+<!-- index.component.html -->
+
+<div class="table-responsive table-hover">
+  <table class="table" width="100%">
+    <thead>
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Nome</th>
+        <th scope="col">Sobrenome</th>
+        <th scope="col">Email</th>
+        <th scope="col">Sexo</th>
+        <th scope="col">Data</th>
+        <th scope="col">Estado</th>
+        <th scope="col">Cidade</th>
+        <th scope="col">Área de Formação</th>
+        <th scope="col">Profissão</th>
+        <th scope="col" colspan="2">Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <tr *ngFor="let prof of listaProf">
+        <th scope="row">{{ prof.id }}</th>
+        <td>{{ prof.nome }}</td>
+        <td>{{ prof.sobrenome }}</td>
+        <td>{{ prof.email }}</td>
+        <td>{{ prof.sexo }}</td>
+        <td>{{ prof.datacriacao | date:'dd/MM/yyyy' }}</td>
+        <td>{{ prof.estadonome }}</td>
+        <td>{{ prof.cidadenome }}</td>
+        <td>{{ prof.areaformacao }}</td>
+        <td>{{ prof.profissao }}</td>
+        <td>
+          <a [routerLink]="['/edit', prof.id]" class="btn btn-primary"> <fa name="edit"></fa> Alterar</a>
+        </td>
+        <td>
+          <a (click)="deleteProf(prof.id)" class="btn btn-danger"><fa name="minus-circle"></fa> Excluir</a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

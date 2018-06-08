@@ -1,0 +1,36 @@
+
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+@import "../node_modules/font-awesome/css/font-awesome.css";
+@import "../node_modules/ng2-slim-loading-bar/style.css";
+
+$color-white:#ffffff;
+$color-red: red;
+$text-center: center;
+
+.form-group.required .control-label:after {
+  content:"*";
+  color: $color-red;
+}
+
+.navbar-nav {
+  width: 100%;
+  display: table;
+}
+.nav-item {
+  margin-right: 18px;
+  margin-bottom: 15px;
+  display: inline-block;
+}
+.modal-dialog {
+  max-width: 95% !important;
+  width: 95% !important;
+  min-width: 95% !important;
+}
+
+.btn-danger,
+.btn-primary, .btn-warning, .btn-success {
+  color: $color-white !important;
+}
+.center {
+  text-align: $text-center;
+}

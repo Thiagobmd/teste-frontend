@@ -1,0 +1,63 @@
+<!-- search.component.html -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-6 col-lg-4">
+        <div class="form-group">
+          <label class="control-label" for="nome">Nome:</label>
+          <input type="text" class="form-control" [(ngModel)]="nomeFilter.nome" name="nome" placeholder="Digite o Nome">
+        </div>
+      </div>
+      <div class="col-sm-12 col-md-6 col-lg-4">
+        <div class="form-group">
+          <label class="control-label" for="selProf">Profissão:</label>
+          <select class="form-control" [(ngModel)]="selProf" name="selProf">
+              <option value="">Todas Profissões</option>
+            <option *ngFor="let itemProf of listaProfTotal" value="{{itemProf.profissao}}">{{itemProf.profissao}}</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-responsive table-hover">
+<table class="table" width="100%">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Nome</th>
+      <th scope="col">Sobrenome</th>
+      <th scope="col">Email</th>
+      <th scope="col">Sexo</th>
+      <th scope="col">Data</th>
+      <th scope="col">Estado</th>
+      <th scope="col">Cidade</th>
+      <th scope="col">Área de Formação</th>
+      <th scope="col">Profissão</th>
+      <th scope="col" colspan="2">Ações</th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr *ngFor="let item of listaProf | filterBy: nomeFilter | filterByProf: selProf">
+      <th scope="row">{{ item.id }}</th>
+      <td>{{ item.nome }}</td>
+      <td>{{ item.sobrenome }}</td>
+      <td>{{ item.email }}</td>
+      <td>{{ item.sexo }}</td>
+      <td>{{ item.datacriacao | date:'dd/MM/yyyy' }}</td>
+      <td>{{ item.estadonome }}</td>
+      <td>{{ item.cidadenome }}</td>
+      <td>{{ item.areaformacao }}</td>
+      <td>{{ item.profissao }}</td>
+      <td>
+        <a [routerLink]="['/edit', item.id, {modal: 'true'}]"class="btn btn-primary">
+          <fa name="edit"></fa> Alterar</a>
+      </td>
+      <td>
+        <a (click)="deleteProf(item.id)" class="btn btn-danger">
+          <fa name="minus-circle"></fa> Excluir</a>
+      </td>
+    </tr>
+  </tbody>
+</table>
+<p class="center" *ngIf="(listaProf | filterBy: nomeFilter).length === 0 || (listaProf | filterByProf: selProf).length === 0 "><span><strong>Não foram encontrados resultados.</strong></span></p>
+</div>
